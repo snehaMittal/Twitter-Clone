@@ -33,7 +33,7 @@ import retrofit2.Response;
 public class SearchFragment extends Fragment {
 
     ListView listView ;
-    SearchView searchView ;
+    android.support.v7.widget.SearchView searchView ;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -45,17 +45,17 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_search, container, false);
         listView = (ListView) view.findViewById(R.id.searchlist);
-        searchView = (SearchView)view.findViewById(R.id.searchlist);
+        searchView = (android.support.v7.widget.SearchView) view.findViewById(R.id.searchview);
 
         TwitterSession session=  TwitterCore.getInstance().getSessionManager().getActiveSession();
         TwitterApiClient client = new TwitterApiClient(session);
         StatusesService statusService = client.getStatusesService();
-        Call<List<Tweet>> tweets = statusService.mentionsTimeline(null , null ,
+        final Call<List<Tweet>> tweets = statusService.mentionsTimeline(null , null ,
                 null , null , null, null );
 
-        tweets.enqueue(new com.twitter.sdk.android.core.Callback<List<Tweet>>() {
+        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
             @Override
-            public void success(Result<List<Tweet>> result) {
+            public boolean onQueryTextSubmit(String query) {
 
                 final SearchTimeline searchTimeline = new SearchTimeline.Builder()
                         .query("#" + searchView.getQuery())
@@ -69,13 +69,36 @@ public class SearchFragment extends Fragment {
                                 .build();
 
                 listView.setAdapter(adapter);
+
+
+
+                return true;
             }
 
             @Override
-            public void failure(TwitterException exception) {
+            public boolean onQueryTextChange(String newText) {
 
+                final SearchTimeline searchTimeline = new SearchTimeline.Builder()
+                        .query("#" + searchView.getQuery())
+                        .maxItemsPerRequest(50)
+                        .build();
+
+                final TweetTimelineListAdapter adapter =
+                        new TweetTimelineListAdapter.Builder(getContext())
+                                .setTimeline(searchTimeline)
+                                .setViewStyle(R.style.tw__TweetLightWithActionsStyle)
+                                .build();
+
+                listView.setAdapter(adapter);
+
+
+
+                return true;
             }
         });
+
+
+
 //
 //        final SearchTimeline searchTimeline = new SearchTimeline.Builder()
 //                .query("#hiking")
