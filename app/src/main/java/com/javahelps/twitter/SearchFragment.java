@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterApiClient;
@@ -32,6 +33,7 @@ import retrofit2.Response;
 public class SearchFragment extends Fragment {
 
     ListView listView ;
+    SearchView searchView ;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -43,7 +45,7 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_search, container, false);
         listView = (ListView) view.findViewById(R.id.searchlist);
-
+        searchView = (SearchView)view.findViewById(R.id.searchlist);
 
         TwitterSession session=  TwitterCore.getInstance().getSessionManager().getActiveSession();
         TwitterApiClient client = new TwitterApiClient(session);
@@ -56,7 +58,7 @@ public class SearchFragment extends Fragment {
             public void success(Result<List<Tweet>> result) {
 
                 final SearchTimeline searchTimeline = new SearchTimeline.Builder()
-                        .query("#hiking")
+                        .query("#" + searchView.getQuery())
                         .maxItemsPerRequest(50)
                         .build();
 

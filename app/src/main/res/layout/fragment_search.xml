@@ -2,10 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.javahelps.twitter.SearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
+    <android.support.v7.widget.SearchView
+        android:id="@+id/searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:queryHint="Search ">
+
+    </android.support.v7.widget.SearchView>
     <ListView
         android:id="@+id/searchlist"
         android:layout_width="match_parent"
