@@ -4,33 +4,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/profile"
-            android:icon="@drawable/ic_menu_camera"
             android:title="Profile" />
-        <item
-            android:id="@+id/menu_list"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="List" />
-        <item
-            android:id="@+id/moments"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Moment" />
-        <item
-            android:id="@+id/highlights"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Highlights" />
-    </group>
 
-    <group >
-        <menu>
-            <item
-                android:id="@+id/setting"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Setting and privacy" />
-            <item
-                android:id="@+id/help"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Help Center" />
-        </menu>
+        <item
+            android:id="@+id/logout"
+            android:title="Log out" />
+        <item
+            android:id="@+id/help"
+            android:title="Help Center" />
     </group>
-
 </menu>
+
+
+

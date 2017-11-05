@@ -1,9 +1,9 @@
 package com.javahelps.twitter;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -14,7 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,9 +24,9 @@ import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.models.User;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 
 public class SecondActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,8 +48,11 @@ public class SecondActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+
+                final Intent intent = new Intent(SecondActivity.this , PosttweetActivity.class);
+
+                startActivity(intent);
             }
         });
 
@@ -123,16 +125,16 @@ public class SecondActivity extends AppCompatActivity
         if (id == R.id.profile) {
             // Handle the c
             // amera action
-        } else if (id == R.id.menu_list) {
+        }  else if (id == R.id.help) {
+            Uri uri = Uri.parse("http://support.twitter.com/#topic_223");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
 
-        } else if (id == R.id.moments) {
+        } else if (id == R.id.logout) {
 
-        } else if (id == R.id.highlights) {
-
-        } else if (id == R.id.help) {
-
-        } else if (id == R.id.setting) {
-
+            Intent intent = new Intent(this , MainActivity.class);
+            finish();
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
